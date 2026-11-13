@@ -1,0 +1,2 @@
+# Cấu hình Prisma Migration Lock cho cơ sở dữ liệu MariaDB/MySQL
+provider = "mysql"

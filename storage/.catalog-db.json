@@ -1,0 +1,14 @@
+{
+  "ownerAccounts": [
+    {
+      "id": "owner_single_account",
+      "username": "owner",
+      "passwordHash": "pbkdf2$100000$5ba3343ceb881875ad8cb3c4dbda2d7b$b606b499aa5bd1f3a22ca7fd076ad5b901ecdc9bd87b3cb68921b592c5159cc9",
+      "displayName": "Chủ sở hữu thư viện",
+      "createdAt": "2026-11-08T06:15:26.369Z",
+      "updatedAt": "2026-11-08T06:15:26.369Z"
+    }
+  ],
+  "books": [],
+  "readingProgress": []
+}

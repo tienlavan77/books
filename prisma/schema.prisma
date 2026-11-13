@@ -1,0 +1,52 @@
+// Mô hình cơ sở dữ liệu MariaDB cho ứng dụng đọc sách PDF cá nhân với xác thực SINGLE_OWNER và đồng bộ tiến độ đa thiết bị.
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model OwnerAccount {
+  id           String   @id @default(cuid())
+  username     String   @unique @db.VarChar(120)
+  passwordHash String   @db.VarChar(255)
+  displayName  String   @default("Chủ sở hữu") @db.VarChar(120)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("owner_accounts")
+}
+
+model Book {
+  id           String           @id @default(cuid())
+  title        String           @db.VarChar(255)
+  originalName String           @db.VarChar(255)
+  storageKey   String           @unique @db.VarChar(255)
+  thumbnailKey String?          @db.VarChar(255)
+  fileSize     Int
+  pageCount    Int              @default(1)
+  mimeType     String           @default("application/pdf") @db.VarChar(100)
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+  progress     ReadingProgress?
+
+  @@index([title])
+  @@index([createdAt])
+  @@map("books")
+}
+
+model ReadingProgress {
+  id              String   @id @default(cuid())
+  bookId          String   @unique
+  book            Book     @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  currentPage     Int      @default(1)
+  progressPercent Float    @default(0)
+  lastDevice      String?  @db.VarChar(120)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([updatedAt])
+  @@map("reading_progress")
+}
