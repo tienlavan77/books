@@ -49,4 +49,4 @@ next-env.d.ts
 # Environment files
 .env
 .env.development.local
-._DS
+._.DS*
